@@ -122,10 +122,9 @@ export const sendVerifyOtp = async (req, res) => {
             });
         }
 
-        // ✅ FIXED OTP generation
         const otp = String(Math.floor(100000 + Math.random() * 900000));
 
-        // ✅ FIXED field name (0 → O)
+     
         user.verifyOtp = otp;
         user.verifyOtpExpireAt = Date.now() + 24 * 60 * 60 * 1000;
 
@@ -133,7 +132,7 @@ export const sendVerifyOtp = async (req, res) => {
 
         const mailOption = {
             from: process.env.SENDER_EMAIL,
-            to: user.email, // ✅ FIXED (email was undefined)
+            to: user.email, 
             subject: 'Account Verification',
             text: `Your OTP is ${otp}. Verify your account using this OTP.`,
         };
@@ -175,7 +174,7 @@ export const verifyEmail = async (req, res) => {
             return res.json({ success: false, message: 'OTP expired' });
         }
 
-        // ✅ Verify account
+        //  Verify account
         user.isAccountVerified = true;
         user.verifyOtp = '';
         user.verifyOtpExpireAt = 0;
